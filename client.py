@@ -7,6 +7,11 @@ RECV_BUFFER_SIZE = 2048
 def client(server_ip, server_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((server_ip, server_port))
+        while True:
+            print(s.recv(RECV_BUFFER_SIZE).decode('utf-8'))
+            password = input()
+            s.sendall()
+
         print("Welcome to the machine")
         while True:
             x = input("[root@week4 /]# ")

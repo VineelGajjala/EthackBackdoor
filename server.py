@@ -14,8 +14,6 @@ def handle_req(conn, addr):
             data = conn.recv(RECV_BUFFER_SIZE)
             if not data: break
             output = os.popen(data.decode('utf-8')).read()
-            print(output)
-            print(len(output))
             if len(output) == 0:
                 conn.sendall("No output given from command".encode('utf-8'))
             else:    
@@ -27,9 +25,23 @@ def server(server_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(('', server_port))
         s.listen(QUEUE_LENGTH)
+        hashedCorrect = 123
+        flag = False
         while True:
             conn, addr = s.accept()
             print('Connection accepted')
+            for i in range(3):
+                conn.sendall('Enter password: '.encode('utf-8'))
+                data = conn.recv(RECV_BUFFER_SIZE)
+                hashedData = data #with hashing
+                if hashedData == hashedCorrect:
+                    flag = True
+                    break
+            if not flag:
+                conn.sendall("Incorrect".encode('utf-8'))
+                conn.close()
+                continue
+                
             worker_thread = threading.Thread(target=handle_req, args=(conn, addr,))
             worker_thread.start()
 
