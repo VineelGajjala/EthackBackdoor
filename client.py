@@ -6,12 +6,13 @@ SEND_BUFFER_SIZE = 2048
 def client(server_ip, server_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((server_ip, server_port))
-
-        chunk = sys.stdin.buffer.read(SEND_BUFFER_SIZE)
-        print(chunk)
-        while chunk:
-            s.sendall(chunk)
-            chunk = sys.stdin.buffer.read(SEND_BUFFER_SIZE)
+        print("Welcome to the machine")
+        while True:
+            x = input("Type in command: ")
+            if (x == "exit"):
+                print("You've exited")
+                break
+            s.sendall(x.encode('utf-8'))
 
 def main():
     """Parse command-line arguments and call client function """
@@ -22,5 +23,4 @@ def main():
     client(server_ip, server_port)
 
 if __name__ == "__main__":
-    print("hi")
     main()

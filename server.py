@@ -10,7 +10,7 @@ def handle_req(conn, addr):
         while True:
             data = conn.recv(RECV_BUFFER_SIZE)
             if not data: break
-            print(data.decode('utf-8'), end='')
+            print(data.decode('utf-8'))
 
 def server(server_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -18,7 +18,7 @@ def server(server_port):
         s.listen(QUEUE_LENGTH)
         while True:
             conn, addr = s.accept()
-            print("did we accept?") # we accept here
+            print('Connection accepted')
             worker_thread = threading.Thread(target=handle_req, args=(conn, addr,))
             worker_thread.start()
 
@@ -31,5 +31,4 @@ def main():
     server(server_port)
 
 if __name__ == "__main__":
-    print("hi")
     main()
