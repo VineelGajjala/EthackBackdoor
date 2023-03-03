@@ -1,0 +1,3 @@
+Current Issues/Goals:
+    - no persistent statement between (choice - os.chdir, not neccessarily)
+    - cd with no value in it, errors

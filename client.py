@@ -2,17 +2,20 @@ import sys
 import socket
 
 SEND_BUFFER_SIZE = 2048
+RECV_BUFFER_SIZE = 2048
 
 def client(server_ip, server_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((server_ip, server_port))
         print("Welcome to the machine")
         while True:
-            x = input("Type in command: ")
+            x = input("[root@week4 /]# ")
             if (x == "exit"):
                 print("You've exited")
                 break
             s.sendall(x.encode('utf-8'))
+            data = s.recv(RECV_BUFFER_SIZE)
+            print(data.decode('utf-8'))
 
 def main():
     """Parse command-line arguments and call client function """
