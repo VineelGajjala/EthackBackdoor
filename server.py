@@ -11,6 +11,7 @@ QUEUE_LENGTH = 10
 
 def handle_req(conn, addr):
     with conn:
+        os.chdir(os.path.expanduser("~"))
         while True:
             data = conn.recv(RECV_BUFFER_SIZE)
             if not data: break
