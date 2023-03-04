@@ -1,9 +1,8 @@
 Current Issues/Goals:
-    - Verification
-        - https://stackoverflow.com/questions/18569784/python-password-protection
-        - just setup proper communication for password verification and let it know about failure or correctness
     - how to get server.py onto machine?
-    - what is cronjob
+    - cronjob for creation and running on start
+    - randomize port but also let information know?
+        - try 1 of 20 differnet ports until connect request suceeds
 
 
 Things to do:
@@ -16,8 +15,8 @@ Things to do:
     3. have some sort of configuration for where it gets commands from. This can be a file, argument, source code modification, etc. This way we can test it out, even if our controller host has a different address than yours.
         - Works, we do it via argument, not sure about the second line
 
-    4. TODO: authenticate its communication and/or commands. We don't want another attacker taking over our system. 
-        -literally no idea
+    4. authenticate its communication and/or commands. We don't want another attacker taking over our system. 
+        -one way hash: password is hill
 
     5. TODO: attempt to hide itself from at least one detection method.
         - delete and reinstall itself upon creation?

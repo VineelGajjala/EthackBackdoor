@@ -1,3 +1,5 @@
+# PASSWORD IS HILL
+
 import sys
 import socket
 
@@ -7,10 +9,22 @@ RECV_BUFFER_SIZE = 2048
 def client(server_ip, server_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((server_ip, server_port))
+        guesses = 0
         while True:
-            print(s.recv(RECV_BUFFER_SIZE).decode('utf-8'))
-            password = input()
-            s.sendall()
+            guesses += 1
+            if guesses >= 4:
+                print("Failed verification, connection closing")
+                s.close()
+                return
+            password = input("Enter password: ") #password to type
+            s.sendall(password.encode('utf-8')) #send password
+            passwordValidation = s.recv(RECV_BUFFER_SIZE).decode('utf-8') == "SUCCESS" # receive verification on pass
+            if passwordValidation:
+                break
+            else:
+                print("Incorrect verification... Try again")
+
+
 
         print("Welcome to the machine")
         while True:
