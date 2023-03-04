@@ -1,4 +1,4 @@
-# PASSWORD IS HILL
+# PASSWORD IS hill lowercase
 
 import sys
 import socket
@@ -6,9 +6,19 @@ import socket
 SEND_BUFFER_SIZE = 2048
 RECV_BUFFER_SIZE = 2048
 
-def client(server_ip, server_port):
+def client(server_ip, ports):
+    i = 0
+    server_port = ports[i]
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((server_ip, server_port))
+        while True:
+            try:
+                s.connect((server_ip, server_port))
+            except:
+                i += 1
+                server_port = ports[i]
+            else:
+                break
+
         guesses = 0
         while True:
             guesses += 1
@@ -38,11 +48,11 @@ def client(server_ip, server_port):
 
 def main():
     """Parse command-line arguments and call client function """
-    if len(sys.argv) != 3:
-        sys.exit("Usage: python client-python.py [Server IP] [Server Port] < [message]")
+    if len(sys.argv) != 2:
+        sys.exit("Usage: python client-python.py [Server IP]")
     server_ip = sys.argv[1]
-    server_port = int(sys.argv[2])
-    client(server_ip, server_port)
+    ports = [54321, 54322, 54323, 54324, 54325, 54326,54327,54328,54329,54330]
+    client(server_ip, ports)
 
 if __name__ == "__main__":
     main()

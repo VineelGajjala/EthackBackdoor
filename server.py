@@ -3,6 +3,7 @@ import socket
 import threading
 import os
 from passlib.hash import sha256_crypt
+import random
 
 
 RECV_BUFFER_SIZE = 2048
@@ -52,9 +53,11 @@ def server(server_port):
 
 def main():
     """Parse command-line argument and call server function """
-    if len(sys.argv) != 2:
-        sys.exit("Usage: python server-python.py [Server Port]")
-    server_port = int(sys.argv[1])
+    if len(sys.argv) != 1:
+        sys.exit("Usage: python server.py")
+    ports = [54321, 54322, 54323, 54324, 54325, 54326,54327,54328,54329,54330]
+    server_port = random.choice(ports)
+    print("We are on port: ", server_port)
     server(server_port)
 
 if __name__ == "__main__":
