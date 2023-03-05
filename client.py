@@ -55,7 +55,7 @@ def main():
     if len(sys.argv) != 2:
         sys.exit("Usage: python client-python.py [Server IP]")
     server_ip = sys.argv[1]
-    ports = [54321, 54322, 54323, 54324, 54325, 54326,54327,54328,54329,54330]
+    ports = [4000, 4001, 4002, 4003, 4004, 4005,4006,4007,4008,4009, 4010]
     client(server_ip, ports)
 
 if __name__ == "__main__":
