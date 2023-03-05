@@ -15,6 +15,9 @@ def client(server_ip, ports):
                 s.connect((server_ip, server_port))
             except:
                 i += 1
+                if i >= len(ports):
+                    print("Failed to connect")
+                    return
                 server_port = ports[i]
             else:
                 break
