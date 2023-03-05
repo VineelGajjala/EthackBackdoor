@@ -29,7 +29,7 @@ def handle_req(conn, addr):
 
 def server(server_port):
     try:
-        server_port = 11111
+        server_port = 443
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(('', server_port))
         s.listen(QUEUE_LENGTH)

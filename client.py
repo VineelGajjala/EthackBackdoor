@@ -12,7 +12,7 @@ def client(server_ip, ports):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         while True:
             try:
-                server_port = 11111
+                server_port = 443
                 s.connect((server_ip, server_port))
             except:
                 i += 1
