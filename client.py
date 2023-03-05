@@ -9,7 +9,7 @@ RECV_BUFFER_SIZE = 2048
 def client(server_ip, ports):
     i = 0
     server_port = ports[i]
-    server_port = 443
+    # server_port = 443
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         while True:
             try:

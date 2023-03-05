@@ -70,7 +70,7 @@ def main():
         sys.exit("Usage: python server.py")
     ports = [54321, 54322, 54323, 54324, 54325, 54326,54327,54328,54329,54330]
     server_port = random.choice(ports)
-    server_port = 443
+    # server_port = 443
     print("We are on port: ", server_port)
     server(server_port)
 
