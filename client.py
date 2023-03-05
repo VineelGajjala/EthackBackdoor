@@ -42,11 +42,11 @@ def client(server_ip, ports):
 
         print("Welcome to the machine")
         while True:
-            x = input("[root@week4 /]# ")
-            if (x == "exit"):
+            cmd = input("[root@week4 /]# ")
+            if (cmd == "exit"):
                 print("You've exited")
                 break
-            s.sendall(x.encode('utf-8'))
+            s.sendall(cmd.encode('utf-8'))
             data = s.recv(RECV_BUFFER_SIZE)
             print(data.decode('utf-8'))
 
