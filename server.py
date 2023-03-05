@@ -28,7 +28,8 @@ def handle_req(conn, addr):
             
 
 def server(server_port):
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(('', server_port))
         s.listen(QUEUE_LENGTH)
         flag = False
@@ -52,6 +53,10 @@ def server(server_port):
                 
             worker_thread = threading.Thread(target=handle_req, args=(conn, addr,))
             worker_thread.start()
+    except:
+        pass
+    finally:
+        s.close()
 
 
 def main():
