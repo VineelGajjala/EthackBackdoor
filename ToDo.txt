@@ -1,8 +1,8 @@
 Current Issues/Goals:
     - how to get server.py onto machine?
+        - Curl?
     - cronjob for creation and running on start
-    - randomize port but also let information know?
-        - try 1 of 20 differnet ports until connect request suceeds
+
 
 
 Things to do:
@@ -18,7 +18,8 @@ Things to do:
     4. authenticate its communication and/or commands. We don't want another attacker taking over our system. 
         -one way hash: password is hill
 
-    5. TODO: attempt to hide itself from at least one detection method.
+    5. attempt to hide itself from at least one detection method.
         - delete and reinstall itself upon creation?
         - https://piazza.com/class/lcotu03e2ul3ja/post/75
         - randomize port? but how does the user know the port?
+        -We select one of ten ports randomly to choose which to use, and the client tries the ports sequentially until we find the one that is correct.

@@ -2,9 +2,12 @@ import sys
 import socket
 import threading
 import os
-from passlib.hash import sha256_crypt
 import random
+import hashlib
 
+salt = os.urandom(32)
+key = hashlib.pbkdf2_hmac('sha256', 'hill'.encode('utf-8'), salt, 100000)
+storage = salt + key 
 
 RECV_BUFFER_SIZE = 2048
 SEND_BUFFER_SIZE = 2048
@@ -28,15 +31,15 @@ def server(server_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(('', server_port))
         s.listen(QUEUE_LENGTH)
-        hashedCorrect = "$5$rounds=535000$DtCpzrAsSi5fdFR6$7fHZtm6F3POvn6OzJ3ZZfDcuFGFGSwvUr6IYJENAKX/"
         flag = False
         while True:
             conn, addr = s.accept()
             print('Connection accepted')
             for i in range(3):
                 data = conn.recv(RECV_BUFFER_SIZE).decode('utf-8')
+                new_key = hashlib.pbkdf2_hmac('sha256',data.encode('utf-8'), salt, 100000)
                 # hashedData = str(sha256_crypt.hash(data)) #with hashing
-                if sha256_crypt.verify(data, hashedCorrect):
+                if new_key == key:
                     conn.sendall("SUCCESS".encode('utf-8'))
                     flag = True
                     break
