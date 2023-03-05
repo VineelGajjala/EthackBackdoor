@@ -14,7 +14,7 @@ SEND_BUFFER_SIZE = 2048
 QUEUE_LENGTH = 10
 
 def handle_req(conn, addr):
-    with conn:
+    try:
         os.chdir(os.path.expanduser("~"))
         while True:
             data = conn.recv(RECV_BUFFER_SIZE)
@@ -25,11 +25,14 @@ def handle_req(conn, addr):
             else:    
                 conn.sendall(output.encode('utf-8'))
             # print("did we send the data?") Data sends correctly
+    except:
+        pass
+    finally:
+        conn.close()
             
 
 def server(server_port):
     try:
-        server_port = 443
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(('', server_port))
         s.listen(QUEUE_LENGTH)
@@ -57,6 +60,7 @@ def server(server_port):
     except:
         pass
     finally:
+        print("Error?")
         s.close()
 
 
